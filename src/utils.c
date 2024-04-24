@@ -6,13 +6,13 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:45:41 by dabae             #+#    #+#             */
-/*   Updated: 2024/04/23 15:27:11 by dabae            ###   ########.fr       */
+/*   Updated: 2024/04/23 14:42:15 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-u_int64_t	get_time(void)
+uint64_t	get_time(void)
 {
 	struct timeval	time;
 
@@ -22,7 +22,7 @@ u_int64_t	get_time(void)
 
 void	ft_usleep(uint64_t elapsed)
 {
-	u_int64_t	start;
+	uint64_t	start;
 
 	start = get_time();
 	while (get_time() < start + elapsed)

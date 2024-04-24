@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:02:52 by dabae             #+#    #+#             */
-/*   Updated: 2024/04/23 16:35:25 by dabae            ###   ########.fr       */
+/*   Updated: 2024/04/23 14:42:07 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <unistd.h>
-# include <stdbool.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 typedef struct s_philo
 {
 	int				id;
-	u_int64_t		countdown_to_death;
+	uint64_t		countdown_to_death;
 	int				num_eat;
 
 	bool			is_dead;
@@ -37,9 +38,9 @@ typedef struct s_philo
 typedef struct s_param
 {
 	int					num_philo;
-	u_int64_t			time_to_die;
-	u_int64_t			time_to_eat;
-	u_int64_t			time_to_sleep;
+	uint64_t			time_to_die;
+	uint64_t			time_to_eat;
+	uint64_t			time_to_sleep;
 	int					max_num_eat;
 	bool				stop;
 	int					num_full;
@@ -56,7 +57,7 @@ int			is_digit(char **av);
 long		ft_atoi(char *str);
 int			is_positive(char **str);
 void		ft_usleep(uint64_t elapsed);
-u_int64_t	get_time(void);
+uint64_t	get_time(void);
 void		init_param(t_param *param, char **av);
 void		init_philo(t_param *param);
 void		eat(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:33:36 by dabae             #+#    #+#             */
-/*   Updated: 2024/04/23 16:20:55 by dabae            ###   ########.fr       */
+/*   Updated: 2024/04/23 17:09:10 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 void	print(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(&philo->param->print);
-	printf("%llu %d %s\n", get_time(), philo->id, msg);
+	printf("%lu %d %s\n", get_time(), philo->id, msg);
 	pthread_mutex_unlock(&philo->param->print);
 }
-
 
 void	eat(t_philo *philo)
 {

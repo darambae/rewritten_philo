@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:33:12 by dabae             #+#    #+#             */
-/*   Updated: 2024/04/23 16:33:50 by dabae            ###   ########.fr       */
+/*   Updated: 2024/04/23 14:55:00 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,19 @@ void	*set_stop(void *philo)
 	while (1)
 	{
 		pthread_mutex_lock(&phi->lock);
-		if (phi->num_eat >= phi->param->max_num_eat)
+		if (phi->param->num_full >= phi->param->num_philo)
 		{
+			pthread_mutex_lock(&phi->param->stop_lock);
+			phi->param->stop = true;
+			pthread_mutex_unlock(&phi->param->stop_lock);
 			pthread_mutex_unlock(&phi->lock);
 			break ;
 		}
 		if (phi->countdown_to_death < get_time())
 		{
+			pthread_mutex_lock(&phi->param->stop_lock);
+			phi->param->stop = true;
+			pthread_mutex_unlock(&phi->param->stop_lock);
 			phi->is_dead = true;
 			print(phi, "died");
 			pthread_mutex_unlock(&phi->lock);
@@ -34,9 +40,6 @@ void	*set_stop(void *philo)
 		}
 		pthread_mutex_unlock(&phi->lock);
 	}
-	pthread_mutex_lock(&phi->param->stop_lock);
-	phi->param->stop = true;
-	pthread_mutex_unlock(&phi->param->stop_lock);
 	return (NULL);
 }
 
@@ -46,6 +49,7 @@ void	*routine(void *philo)
 	pthread_t	stop;
 
 	phi = (t_philo *)philo;
+	phi->countdown_to_death = get_time() + phi->param->time_to_die;
 	pthread_create(&stop, NULL, &set_stop, phi);
 	while (phi->is_dead == false)
 	{
